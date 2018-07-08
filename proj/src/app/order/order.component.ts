@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {RadioOption} from '../commom/radio/radio-option.model'
+import {RadioOption} from '../shared/radio/radio-option.model'
 import {OrderService} from "./order.service"
 import {CartItem} from '../restaurant-detail/shopping-cart/cart-item.model'
 import {Order, OrderItem} from './order.model'
