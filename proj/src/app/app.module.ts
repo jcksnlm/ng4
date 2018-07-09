@@ -24,7 +24,9 @@ import { OrderSummaryComponent } from './order-summary/order-summary.component';
 import { RatingComponent } from './shared/rating/rating.component';
 import { SharedModule } from "./shared/shared.module";
 import { CoreModule } from './core/core.module';
-import { NotFoundComponent } from './not-found/not-found.component'
+import { NotFoundComponent } from './not-found/not-found.component';
+import { LoginComponent } from './security/login/login.component';
+import { UserDetailComponent } from './header/user-detail/user-detail.component'
 
 
 @NgModule({
@@ -40,7 +42,9 @@ import { NotFoundComponent } from './not-found/not-found.component'
     MenuItemComponent,
     ReviewsComponent,
     OrderSummaryComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    LoginComponent,
+    UserDetailComponent
   ],
   imports: [
     BrowserModule,
