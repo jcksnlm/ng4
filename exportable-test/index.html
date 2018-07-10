@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="rating.css">
+  </head>
+  <body>
+
+    <mt-rating rate="3"></mt-rating>
+
+    <script type="text/javascript" src="rating.js">
+    </script>
+    <script type="text/javascript">
+      document.querySelector("mt-rating").addEventListener('rated', (event) => {
+        console.log('selected: ', event.detail);
+      })
+    </script>
+  </body>
+</html>
