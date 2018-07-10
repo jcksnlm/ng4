@@ -6,7 +6,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ROUTES } from './app.routes'
-import {LocationStrategy, HashLocationStrategy} from "@angular/common";
+import {LocationStrategy, HashLocationStrategy, registerLocaleData } from "@angular/common";
+import localePt from "@angular/common/locales/pt"
+registerLocaleData(localePt, 'pt')
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -56,7 +58,7 @@ import {ApplicationErrorHandler} from "./app.error-handler";
   ],
   providers: [
     {provide: LocationStrategy, useClass: HashLocationStrategy},
-    {provide: LOCALE_ID, useValue: 'pt-BR'},
+    {provide: LOCALE_ID, useValue: 'pt'},
     {provide: ErrorHandler, useClass: ApplicationErrorHandler},
   ],
   bootstrap: [AppComponent]
