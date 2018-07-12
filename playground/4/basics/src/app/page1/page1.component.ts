@@ -28,13 +28,17 @@ export class Page1Component implements OnInit {
      return "uyagsdugysda"
     }).then((r) => {console.log(r)});
 
+    Promise.all([
+      this.myPromise('promise 1'),
+      this.myPromise2('promise 2')
+    ]).then(values=>{
+      console.log(`promise result: ${values[0]}`);
+      console.log(`promise result: ${values[1]}`);
+    });
 
   }
 
-
-
   myPromise(x) {
-
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         resolve(x);
@@ -42,6 +46,12 @@ export class Page1Component implements OnInit {
     });
   }
 
-
+  myPromise2(x) {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(x);
+      }, 5000);
+    });
+  }
 
 }
