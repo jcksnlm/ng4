@@ -6,3 +6,7 @@
 <div *ngIf="routeParameter">
   parameter is {{routeParameter}}
 </div>
+
+<div>
+    <app-input-output [btnName]="'entrada'" (emitAlert)="outputReturn($event)"></app-input-output>
+</div>

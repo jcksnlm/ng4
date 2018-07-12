@@ -5,9 +5,21 @@
 
 <a [routerLink]="['/page2/5']">page 2 with parameter</a>
 
-<div class>
-  <form #myForm="ngForm" novalidate>
 
+<div>
+
+  <form #myForm="ngForm" novalidate>
+      <input type="text" name="nome" #iptName="ngModel" [(ngModel)]="name">
+  </form>
+  {{myForm.value | json}}
+
+</div>
+<br>
+<div>
+
+  <form [formGroup]="rForm" novalidate>
+      <input type="text" name="nome" formControlName="name2">
+      <input type="submit" [disabled]="rForm.invalid">
   </form>
 
 </div>
