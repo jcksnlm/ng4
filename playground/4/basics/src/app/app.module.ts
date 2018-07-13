@@ -9,13 +9,19 @@ import { AppComponent } from './app.component';
 import { Page1Component } from './page1/page1.component';
 import { Page2Component } from './page2/page2.component';
 import { InputOutputComponent } from './input-output/input-output.component';
+import { Component2Component } from './component2/component2.component';
+import { Component3Component } from './component3/component3.component';
+import { Component4Component } from './component4/component4.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     Page1Component,
     Page2Component,
-    InputOutputComponent
+    InputOutputComponent,
+    Component2Component,
+    Component3Component,
+    Component4Component
   ],
   imports: [
     BrowserModule,

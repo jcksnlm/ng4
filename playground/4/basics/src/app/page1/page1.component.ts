@@ -12,6 +12,9 @@ export class Page1Component implements OnInit {
   name: string
   rForm: FormGroup
 
+  title = "app"
+  myVar = "from main"
+
   constructor(private fb: FormBuilder) { }
 
 
@@ -53,5 +56,8 @@ export class Page1Component implements OnInit {
       }, 5000);
     });
   }
+
+
+
 
 }

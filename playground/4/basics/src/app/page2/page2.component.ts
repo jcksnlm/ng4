@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from "@angular/common/http"
-import { Observable } from "rxjs"
+import { Observable, Subject } from "rxjs"
 import { catchError, map } from "rxjs/operators"
 
 import { ActivatedRoute } from "@angular/router";
@@ -26,6 +26,17 @@ export class Page2Component implements OnInit {
 
     this.routeParameter = this.activatedRoute.snapshot.params['id']
     console.log(this.routeParameter)
+
+
+
+  this.subject.subscribe((data) => {
+    console.log("Subscriber 1 got data >>>>> "+ data);
+  });
+  this.subject.subscribe((data) => {
+    console.log("Subscriber 2 got data >>>>> "+ data);
+  });
+
+  this.subject.next("Eureka");
   }
 
   returnHttp(): Observable<any> {
@@ -41,5 +52,10 @@ export class Page2Component implements OnInit {
   outputReturn(event: string) {
       alert(event)
   }
+
+  subject = new Subject<string>();
+  // We subscribe to the subject
+
+
 
 }
