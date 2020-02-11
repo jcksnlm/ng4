@@ -36,25 +36,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var express = require("express");
-var https = require("https");
-var expressLoader = require("./loaders/express");
-function startServer() {
-    return __awaiter(this, void 0, void 0, function () {
-        var server;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    server = express();
-                    return [4 /*yield*/, expressLoader["default"]({ server: server })];
-                case 1:
-                    _a.sent();
-                    https.createServer(expressLoader.options, server).listen(expressLoader.PORT, function () {
-                        console.log('JSON Server is running on https://localhost:' + expressLoader.PORT);
-                    });
-                    return [2 /*return*/];
-            }
+var fs = require("fs");
+var auth_1 = require("../services/auth");
+var authz_1 = require("../services/authz");
+exports["default"] = (function (_a) {
+    var server = _a.server;
+    return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_b) {
+            server.post('/login', auth_1.handleAuthentication);
+            server.use('/orders', authz_1.handleAuthorization);
+            server.get('/users', authz_1.handleAuthorization, function (req, res, next) {
+                res.send('hue');
+                next();
+            });
+            // ...More middlewares
+            // Return the express app
+            return [2 /*return*/, server];
         });
     });
-}
-startServer();
+});
+exports.options = {
+    cert: fs.readFileSync('./keys/cert.pem'),
+    key: fs.readFileSync('./keys/key.pem')
+};
+exports.PORT = 3001;

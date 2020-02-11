@@ -1,8 +1,8 @@
 "use strict";
 exports.__esModule = true;
-var users_1 = require("./users");
+var users_1 = require("../models/users");
 var jwt = require("jsonwebtoken");
-var api_config_1 = require("./api-config");
+var api_config_1 = require("../config/api-config");
 exports.handleAuthentication = function (req, resp) {
     var user = req.body;
     if (isValid(user)) {

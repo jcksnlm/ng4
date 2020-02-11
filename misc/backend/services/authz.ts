@@ -1,6 +1,6 @@
 import {Request, Response} from 'express'
 import * as jwt from 'jsonwebtoken'
-import {apiConfig} from "./api-config";
+import {apiConfig} from "../config/api-config";
 
 export const handleAuthorization = (req, resp, next) => {
   const token = extractToken(req)
