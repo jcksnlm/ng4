@@ -1,20 +1,21 @@
 import {Request, Response} from "express";
-import {User, users} from '../models/users'
+import {User} from '../models/users'
 import * as jwt from "jsonwebtoken";
 import {apiConfig} from "../config/api-config";
+import * as UserService from "./userService"
 
 
-export const handleAuthentication = (req: Request, resp: Response) => {
+export const handleAuthentication = async (req: Request, resp: Response) => {
+
   const user: User = req.body
-  if (isValid(user)) {
-    const dbUser = users[user.email]
+  if (await isValid(user)) {
 
     const token = jwt.sign({
-      sub: dbUser.email,
+      sub: user.email,
       iss: 'backend'
   }, apiConfig.secret, {expiresIn: 86400}) //um dia
 
-    resp.json({name: dbUser.name, email: dbUser.email, accessToken: token})
+    resp.json({email: user.email, accessToken: token})
   }
   else {
     resp.status(403).json({message:'Dados inválido'})
@@ -22,12 +23,22 @@ export const handleAuthentication = (req: Request, resp: Response) => {
 }
 
 
-function isValid(user: User): boolean {
+async function isValid(user: User): Promise<boolean> {
+
   if (!user){
+
     return false
   }
   else {
-    const dbUser = users[user.email]
-    return dbUser !== undefined && dbUser.matches(user)
+
+    const users:Array<User> = await UserService.getUsers();
+
+    const foundUser = UserService.findUser(users, user.email);
+    if (!foundUser) {
+        return false;
+    }
+    const matchedUser = new User(foundUser.email, foundUser.name, foundUser.password)
+
+    return matchedUser.matchesPassword(user.password)
   }
 }

@@ -36,32 +36,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var bodyParser = require("body-parser");
-var fs = require("fs");
-var auth_1 = require("../services/auth");
-var authz_1 = require("../services/authz");
-var nasa_1 = require("../services/nasa");
-exports["default"] = (function (_a) {
-    var server = _a.server;
-    return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            server.use(function (req, res, next) {
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type");
-                next();
-            });
-            // Body Parser Middleware
-            server.use(bodyParser.urlencoded({ extended: false }));
-            server.use(bodyParser.json({ limit: '2mb' }));
-            server.post('/login', auth_1.handleAuthentication);
-            server.use('/orders', authz_1.handleAuthorization);
-            server.get('/nasa', authz_1.handleAuthorization, nasa_1.getNasaJson);
-            return [2 /*return*/, server];
-        });
+var axios_1 = require("axios");
+exports.getNasaJson = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var nasaJson;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, axios_1["default"].get('https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY').then(function (response) {
+                    nasaJson = response.data;
+                })["catch"](function (error) {
+                    console.log(error);
+                })];
+            case 1:
+                _a.sent();
+                res.send(nasaJson);
+                return [2 /*return*/];
+        }
     });
-});
-exports.options = {
-    cert: fs.readFileSync('./keys/cert.pem'),
-    key: fs.readFileSync('./keys/key.pem')
-};
-exports.PORT = 3001;
+}); };

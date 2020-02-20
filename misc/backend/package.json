@@ -12,13 +12,16 @@
     "e2e": "protractor"
   },
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^0.19.2"
+  },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/jsonwebtoken": "^8.3.7",
     "@types/node": "^13.7.0",
     "json-server": "^0.15.1",
     "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.5.3",
     "protractor": "^5.4.3",
     "typescript": "^3.7.5"
   }

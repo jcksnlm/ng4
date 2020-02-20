@@ -36,32 +36,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var bodyParser = require("body-parser");
-var fs = require("fs");
-var auth_1 = require("../services/auth");
-var authz_1 = require("../services/authz");
-var nasa_1 = require("../services/nasa");
-exports["default"] = (function (_a) {
-    var server = _a.server;
-    return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_b) {
-            server.use(function (req, res, next) {
-                res.setHeader('Access-Control-Allow-Origin', '*');
-                res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type");
-                next();
-            });
-            // Body Parser Middleware
-            server.use(bodyParser.urlencoded({ extended: false }));
-            server.use(bodyParser.json({ limit: '2mb' }));
-            server.post('/login', auth_1.handleAuthentication);
-            server.use('/orders', authz_1.handleAuthorization);
-            server.get('/nasa', authz_1.handleAuthorization, nasa_1.getNasaJson);
-            return [2 /*return*/, server];
+var mongodb = require("mongodb");
+function getUsers() {
+    return __awaiter(this, void 0, void 0, function () {
+        var users;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, getUsersFromDb()];
+                case 1:
+                    users = _a.sent();
+                    return [2 /*return*/, users];
+            }
         });
     });
-});
-exports.options = {
-    cert: fs.readFileSync('./keys/cert.pem'),
-    key: fs.readFileSync('./keys/key.pem')
-};
-exports.PORT = 3001;
+}
+exports.getUsers = getUsers;
+function findUser(users, email) {
+    return users.find(function (user) { return user.email === email; });
+}
+exports.findUser = findUser;
+function getUsersFromDb() {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    mongodb.connect("mongodb+srv://admin:admin@test-backend-zrbxy.mongodb.net/test?retryWrites=true&w=majority", function (err, client) {
+                        if (err)
+                            throw err;
+                        console.log('mongodb connected');
+                        var db = client.db('myDatabase');
+                        db.collection('myCollection', function (err, collection) {
+                            collection.find().toArray(function (err, items) {
+                                if (err)
+                                    throw err;
+                                resolve(items);
+                            });
+                        });
+                    });
+                })];
+        });
+    });
+}
